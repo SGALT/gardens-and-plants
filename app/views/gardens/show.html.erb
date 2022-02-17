@@ -1,0 +1,29 @@
+<div class="banner mb-5" style="background-image: url(<%= @garden.banner_url %>);">
+  <h1>
+    <%= @garden.name %>
+  </h1>
+</div>
+
+<div class="container">
+  <div class="cards">
+    <% @garden.plants.each do |plant| %>
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="<%= plant.image_url %>" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title"><%= plant.name %></h5>
+          <p class="card-text">
+            <%= link_to 'Destroy', plant_path(plant), method: :delete %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <%= simple_form_for [@garden, @plant] do |f|%>
+    <%= f.input :name %>
+    <%= f.input :image_url %>
+    <%= f.submit "Create new plant for this garden", class: 'btn btn-success' %>
+  <% end %>
+  <%= link_to 'Edit', edit_garden_path(@garden), class: "btn btn-secondary" %>
+  <%= link_to 'Back', gardens_path, class: "btn btn-secondary" %>
+</div>
